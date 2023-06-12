@@ -1,0 +1,112 @@
+<!-- Created By CodingNepal -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | HEMIS OTM axborot tizimi | </title>
+    <link rel="stylesheet" href="chat.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="title">Simple Online Chatbot</div>
+        <div class="form">
+            <div class="bot-inbox inbox">
+                <div class="icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="msg-header">
+                    <p>Hello there, how can I help you?</p>
+                    
+                </div>
+            </div>
+            <div class="user-inbox inbox"><div class="msg-header"><p class="massage">value  <i class="edit_text fa-regular fa-pen-to-square"></i> </p></div></div>
+            <div class="user-inbox inbox"><div class="msg-header"><p class="massage">value  <i class="edit_text fa-regular fa-pen-to-square"></i> </p></div></div>
+            <div class="user-inbox inbox"><div class="msg-header"><p class="massage">value  <i class="edit_text fa-regular fa-pen-to-square"></i> </p></div></div>
+
+            <div class="user-inbox inbox"><div class="msg-header"><p class="massage">+ $valuww  <i class="edit_text fa-regular fa-pen-to-square"></i> </p></div></div>
+        </div>
+        <div class="typing-field">
+            <div class="input-data">
+                <input cols="30" rows="10" id="data" type="text" placeholder="Type something here.." required>
+                <button id="send-btn">Send</button>
+            </div>
+        </div>
+    </div>
+    <div class="edit__plase none">
+        <div class="save_edit">
+            <i class="fa-solid fa-check"></i>
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+    <textarea rows="9" cols="12" class="edited_text">
+
+    </textarea>
+  
+    </div>
+    <style>
+    .save_edit{
+        display: flex;
+        justify-content: end;
+        font-size: 24px;
+    }
+    .save_edit i{
+        padding: 2px;
+        margin:4px;
+        margin-left: 2px;
+        border: 1px solid blue;
+    }
+    </style>
+    <script>
+
+        
+        let edit_plase= document.querySelector(".edit__plase"),
+        edited_text = document.querySelector(".edited_text"),
+        edit_text = document.querySelectorAll(".edit_text"),
+       massage = document.querySelector(".massage")
+       console.log(edited_text);
+       
+       
+  
+       edit_text.forEach(element => {
+        
+           
+    
+            element.addEventListener("click",()=>{  
+                    
+                edit_plase.classList.remove("none")
+            
+        })
+        }) ;
+    
+
+
+
+        $(document).ready(function(){
+            $("#send-btn").on("click", function(){
+                $value = $("#data").val();
+                $msg = '<div class="user-inbox inbox"><div class="msg-header"><p>'+ $value +' <i class="edit_text fa-regular fa-pen-to-square"></i></p></div></div>';
+                $(".form").append($msg);
+                $("#data").val('');
+                
+                // start ajax code
+                $.ajax({
+                    url: 'message.php',
+                    type: 'POST',
+                    data: 'text='+$value,
+                    success: function(result){
+                        $replay = '<div class="bot-inbox inbox"><div class="icon"><i class="fas fa-user"></i></div><div class="msg-header"><p>'+ result +'</p></div></div>';
+                        $(".form").append($replay);
+                        // when chat goes down the scroll bar automatically comes to the bottom
+                        $(".form").scrollTop($(".form")[0].scrollHeight);
+                    }
+                });
+            });
+        });
+
+    </script>
+    
+</body>
+
+</html> 
